@@ -1,17 +1,16 @@
 // Events for numbers and operators
-let userInput = document.getElementById("display").querySelector('#calScreen').value
+let screen = document.querySelector('#calScreen')
 let nodelist = document.querySelectorAll('.number-button, .operator-button')
 nodelist.forEach((key)=>
     key.addEventListener('click', (e)=>{
-        
+        // let screen = document.getElementById("display").querySelector('#calScreen')
         let keyValue = e.target.value
-        if(userInput === '0'){
-            userInput = keyValue
+        if(screen.value === '0'){
+            screen.value = keyValue
         }
         else{
-            userInput += keyValue
+            screen.value += keyValue
         }
-        document.querySelector('#calScreen').value = userInput
     }, false)
 )
 
@@ -20,5 +19,11 @@ document.querySelector('.reset').addEventListener('click', (e)=>{
     document.querySelector('#calScreen').value = 0
 })
 document.querySelector('.return-button').addEventListener('click', (e)=>{
+    try{
+        screen.value = eval(screen.value)
+    }
+    catch(error){
+        screen.value = error
+    }
     
 })
