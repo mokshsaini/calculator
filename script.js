@@ -1,6 +1,6 @@
 // Events for numbers, decimal and operators
 let screen = document.querySelector('#calScreen');
-let nodelist = document.querySelectorAll('.number-button, .operator-button, .decimal');
+let nodelist = document.querySelectorAll('.number-button, .operator-button, .decimal, .bracket');
 nodelist.forEach((key)=>
     key.addEventListener('click', (e)=>{
         let keyValue = e.target.value;
@@ -36,7 +36,7 @@ document.querySelector('.del').addEventListener('click', (e)=>{
 // Keydown Events
 document.body.addEventListener('keydown', (e)=>{
     let keyValue = e.key;
-    if(/[\d+/*-]/.test(keyValue)){      // we didn't use switch case because it compares with strict equality(===)
+    if(/[\d()+/*-]/.test(keyValue)){      // we didn't use switch case because it compares with strict equality(===)
         if(screen.value === '0'){
             screen.value = keyValue;
         }
@@ -45,8 +45,11 @@ document.body.addEventListener('keydown', (e)=>{
         }
     }
     else if(/=|Enter/.test(keyValue)){
+        e.preventDefault();     // to resolve pressing enter bug
         try{
+            console.log(screen.value);
             screen.value = eval(screen.value);
+            console.log(screen.value);
         }
         catch(error){
             screen.value = SyntaxError();
